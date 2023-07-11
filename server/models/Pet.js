@@ -2,16 +2,20 @@ const mongoose = require('mongoose');
 
 const PetSchema = new mongoose.Schema({
     animalType: {
-        type: String
+        type: String,
+        required: [true, "All animals must have a type!"]
     },
     name: {
         type: String
     },
     isSick: {
-        type: Boolean
+        type: Boolean,
+        required: [true, "Must state whether the animal is sick"]
     },
     numOfLegs: {
-        type: Number
+        type: Number,
+        min: [1, "All animals must have at least 1 leg (no snakes!)"]
+        
     }
 }, {timestamps: true});
 

@@ -6,8 +6,29 @@ module.exports.findAllPets = (req, res) => {
         .catch( err => console.log(err));
 }
 
+module.exports.findOnePet = (req, res) => {
+    Pet.findById({ _id: req.params.id })
+        .then( onePet => res.json(onePet))
+        .catch( err => console.log(err));
+}
+
 module.exports.createPet = (req, res) => {
     Pet.create(req.body)
         .then( newPet => res.json(newPet))
-        .catch( err => console.log(err));
+        .catch( err => res.json(err));
 }
+
+module.exports.updatePet = (req, res) => {
+    Pet.findByIdAndUpdate(
+        {_id: req.params.id}, 
+        req.body, 
+        {new:true, runValidators: true}
+    )
+        .then(updatedPet => res.json(updatedPet))
+        .catch( err => res.json(err));
+}
+module.exports.deletePet = (req, res) => {
+    Pet.findByIdAndDelete({ _id: req.params.id })
+        .then(result => res.json({result: result}))
+        .catch(err => console.log(err));
+ }
