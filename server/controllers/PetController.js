@@ -2,7 +2,10 @@ const Pet = require("../models/Pet");
 
 module.exports.findAllPets = (req, res) => {
     Pet.find()
-        .then( allPets => res.json(allPets))
+        .then( allPets => {
+            console.log("All Pets Grabbed!");
+            return res.json(allPets);
+        })
         .catch( err => console.log(err));
 }
 
